@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print, use_build_context_synchronously
+
 import 'package:expense_tracker/services/auth.dart';
 import 'package:expense_tracker/services/database.dart';
 import 'package:flutter/material.dart';
@@ -57,7 +59,7 @@ class _AddExpenseState extends State<AddExpense> {
 
   @override
   Widget build(BuildContext context) {
-    DateTime now = DateTime.now();
+    // DateTime now = DateTime.now();
     final formatter = DateFormat('yyyy-MM-dd');
 
     return Form(

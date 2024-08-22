@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:expense_tracker/screens/expense.dart';
 
 class ExpensesList extends StatefulWidget {
-  const ExpensesList({super.key});
-
+  ExpensesList({super.key, required this.sortInc});
+  bool sortInc;
   @override
   State<ExpensesList> createState() => _ExpensesListState();
 }
@@ -22,6 +22,7 @@ class _ExpensesListState extends State<ExpensesList> {
             .collection('Users')
             .doc(uid)
             .collection('Expenses')
+            .orderBy('amount', descending: widget.sortInc)
             .snapshots(),
         builder: (ctx, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -40,6 +41,8 @@ class _ExpensesListState extends State<ExpensesList> {
                 child: Text("No Expenses yet"),
               );
             }
+
+            // expensesList.sort((a, b) => a['amount'].compareTo(b['amount']));
 
             return ListView.builder(
                 itemCount: expensesList.length,

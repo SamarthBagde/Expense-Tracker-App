@@ -13,6 +13,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final AuthService _auth = AuthService();
 
+  bool sortInc = true;
+
   void _addExpense() {
     showModalBottomSheet(
       isScrollControlled: true,
@@ -83,10 +85,34 @@ class _HomePageState extends State<HomePage> {
           style: TextStyle(color: Colors.white),
         ),
       ),
-      body: Container(
-        // height: containerHeight,
-        padding: const EdgeInsetsDirectional.all(12),
-        child: const ExpensesList(),
+      body: Stack(
+        children: [
+          Container(
+            // height: containerHeight,
+            padding: const EdgeInsetsDirectional.all(12),
+            child: ExpensesList(
+              sortInc: sortInc,
+            ),
+          ),
+          Positioned(
+            bottom: 16.0, // Distance from the bottom
+            left: 16.0, // Distance from the left
+            child: IconButton(
+              style: IconButton.styleFrom(
+                backgroundColor: const Color.fromARGB(255, 75, 125, 251),
+              ),
+              onPressed: () {
+                setState(() {
+                  sortInc = !sortInc;
+                });
+              },
+              icon: const Icon(
+                Icons.filter_alt_outlined,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

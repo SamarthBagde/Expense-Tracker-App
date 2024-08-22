@@ -49,6 +49,7 @@ class Database {
     required String amount,
     required String date,
     required String expenseId,
+    required String category,
   }) async {
     try {
       await FirebaseFirestore.instance
@@ -60,6 +61,7 @@ class Database {
         'title': title,
         'amount': amount,
         'date': date,
+        'category': category,
       });
     } catch (e) {
       print(e.toString());

@@ -1,3 +1,4 @@
+// ignore_for_file: use_build_context_synchronously
 import "package:flutter/material.dart";
 
 import "package:expense_tracker/services/auth.dart";
@@ -9,9 +10,10 @@ class EditExpense extends StatefulWidget {
       required this.oldTitle,
       required this.oldAmount,
       required this.expenseId,
-      required this.date});
+      required this.date,
+      required this.category});
 
-  final String oldTitle, oldAmount, expenseId, date;
+  final String oldTitle, oldAmount, expenseId, date, category;
 
   @override
   State<EditExpense> createState() => _EditExpenseState();
@@ -39,7 +41,7 @@ class _EditExpenseState extends State<EditExpense> {
   @override
   Widget build(BuildContext context) {
     final uid = _auth.getCurrentUid();
-    final Database _database = Database(uid: uid);
+    final Database database = Database(uid: uid);
     return Form(
       child: Column(
         children: [
@@ -66,11 +68,12 @@ class _EditExpenseState extends State<EditExpense> {
           ),
           ElevatedButton(
             onPressed: () async {
-              await _database.updateExpense(
+              await database.updateExpense(
                   title: _titleController.text,
                   amount: _amountController.text,
                   date: widget.date,
-                  expenseId: widget.expenseId);
+                  expenseId: widget.expenseId,
+                  category: widget.category);
               Navigator.of(context).pop();
             },
             child: const Text('Submit'),

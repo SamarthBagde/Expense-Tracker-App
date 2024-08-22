@@ -68,6 +68,7 @@ class Expesnse extends StatelessWidget {
                           oldAmount: amount,
                           expenseId: expenseId,
                           date: date,
+                          category: category,
                         ),
                       ],
                     ),
