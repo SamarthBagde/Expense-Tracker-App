@@ -128,17 +128,18 @@ class _AddExpenseState extends State<AddExpense> {
               ),
               Row(
                 children: [
-                  Text(
-                    _selectedDate == null
-                        ? "No date selected"
-                        : formatter.format(_selectedDate!),
+                  IconButton(
+                    onPressed: _datePicker,
+                    icon: const Icon(Icons.calendar_month),
                   ),
                   const SizedBox(
                     width: 20,
                   ),
-                  IconButton(
-                    onPressed: _datePicker,
-                    icon: const Icon(Icons.calendar_month),
+                  Text(
+                    _selectedDate == null
+                        ? "No date selected"
+                        : formatter.format(_selectedDate!),
+                    style: const TextStyle(fontSize: 18),
                   ),
                 ],
               ),

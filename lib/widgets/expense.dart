@@ -1,5 +1,5 @@
-import 'package:expense_tracker/screens/delete_expense.dart';
-import 'package:expense_tracker/screens/edit_expense.dart';
+import 'package:expense_tracker/widgets/delete_expense.dart';
+import 'package:expense_tracker/widgets/edit_expense.dart';
 import 'package:flutter/material.dart';
 
 class Expesnse extends StatelessWidget {

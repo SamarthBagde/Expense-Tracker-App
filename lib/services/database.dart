@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:expense_tracker/services/auth.dart';
 
 class Database {
   Database({required this.uid});
@@ -11,7 +12,7 @@ class Database {
       FirebaseFirestore.instance.collection('Users').doc(uid).set({
         'firstName': firstName,
         'lastName': lastName,
-        'eamil': email,
+        'email': email,
         'uid': uid
       });
     } catch (e) {
@@ -81,5 +82,9 @@ class Database {
     } catch (e) {
       print(e.toString());
     }
+  }
+
+  Future<DocumentSnapshot> getUserData() async {
+    return FirebaseFirestore.instance.collection('Users').doc(uid).get();
   }
 }

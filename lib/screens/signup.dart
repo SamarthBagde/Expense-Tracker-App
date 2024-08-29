@@ -13,6 +13,7 @@ class Signup extends StatefulWidget {
 
 class _SignupState extends State<Signup> {
   String error = '';
+  bool obsPassword = true;
 
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
@@ -29,6 +30,12 @@ class _SignupState extends State<Signup> {
     _emailController.dispose();
     _passwordCOntroller.dispose();
     super.dispose();
+  }
+
+  void showPassword() {
+    setState(() {
+      obsPassword = !obsPassword;
+    });
   }
 
   @override
@@ -96,12 +103,21 @@ class _SignupState extends State<Signup> {
                     ),
                     TextFormField(
                       controller: _passwordCOntroller,
-                      obscureText: true,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
+                      obscureText: obsPassword,
+                      decoration: InputDecoration(
+                        border: const OutlineInputBorder(),
                         // hintText: 'Password',
-                        label: Text("Password"),
-                        suffix: Icon(Icons.visibility),
+                        label: const Text("Password"),
+                        suffix: InkWell(
+                          onTap: showPassword,
+                          child: obsPassword
+                              ? const Icon(
+                                  Icons.visibility,
+                                )
+                              : const Icon(
+                                  Icons.visibility_off,
+                                ),
+                        ),
                       ),
                       validator: (value) => value!.length < 8
                           ? "Enter 8 char long password"

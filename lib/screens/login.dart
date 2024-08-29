@@ -12,9 +12,16 @@ class _LoginState extends State<Login> {
   String email = '';
   String password = '';
   String error = '';
+  bool obsPassword = true;
 
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
+
+  void showPassword() {
+    setState(() {
+      obsPassword = !obsPassword;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,12 +68,21 @@ class _LoginState extends State<Login> {
                       height: 24,
                     ),
                     TextFormField(
-                      obscureText: true,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
+                      obscureText: obsPassword,
+                      decoration: InputDecoration(
+                        border: const OutlineInputBorder(),
                         // hintText: 'Password',
-                        label: Text("Password"),
-                        suffix: Icon(Icons.visibility),
+                        label: const Text("Password"),
+                        suffix: InkWell(
+                          onTap: showPassword,
+                          child: obsPassword
+                              ? const Icon(
+                                  Icons.visibility,
+                                )
+                              : const Icon(
+                                  Icons.visibility_off,
+                                ),
+                        ),
                       ),
                       validator: (value) => value!.length < 8
                           ? "Enter 8 char long password"

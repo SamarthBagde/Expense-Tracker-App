@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expense_tracker/services/auth.dart';
 import 'package:flutter/material.dart';
-import 'package:expense_tracker/screens/expense.dart';
+import 'package:expense_tracker/widgets/expense.dart';
 
 class ExpensesList extends StatefulWidget {
-  ExpensesList({super.key, required this.sortInc});
-  bool sortInc;
+  const ExpensesList({super.key, required this.sortInc});
+  final bool sortInc;
   @override
   State<ExpensesList> createState() => _ExpensesListState();
 }
