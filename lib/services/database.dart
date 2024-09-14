@@ -101,4 +101,27 @@ class Database {
 
     return totalAmount;
   }
+
+  Future<Map<String, double>> getExpenseAmountSummery() async {
+    Map<String, double> amounts = {
+      'food': 0,
+      'travel': 0,
+      'work': 0,
+      'entertainment': 0,
+      'other': 0
+    };
+
+    QuerySnapshot snapshot = await FirebaseFirestore.instance
+        .collection('Users')
+        .doc(uid)
+        .collection('Expenses')
+        .get();
+
+    for (var doc in snapshot.docs) {
+      amounts[doc['category']] = (amounts[doc['category']] ?? 0.0) +
+          (double.tryParse(doc['amount']) ?? 0.0);
+    }
+
+    return amounts;
+  }
 }
