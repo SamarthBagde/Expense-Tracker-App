@@ -102,7 +102,7 @@ class Database {
     return totalAmount;
   }
 
-  Future<Map<String, double>> getExpenseAmountSummery() async {
+  Future<Map<String, double>> getExpenseAmountSummary() async {
     Map<String, double> amounts = {
       'food': 0,
       'travel': 0,

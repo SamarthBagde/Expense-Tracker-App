@@ -2,14 +2,14 @@ import 'package:expense_tracker/services/auth.dart';
 import 'package:expense_tracker/services/database.dart';
 import 'package:flutter/material.dart';
 
-class ExpensesSummery extends StatefulWidget {
-  const ExpensesSummery({super.key});
+class ExpensesSummary extends StatefulWidget {
+  const ExpensesSummary({super.key});
 
   @override
-  State<ExpensesSummery> createState() => _ExpensesSummeryState();
+  State<ExpensesSummary> createState() => _ExpensesSummaryState();
 }
 
-class _ExpensesSummeryState extends State<ExpensesSummery> {
+class _ExpensesSummaryState extends State<ExpensesSummary> {
   final AuthService _auth = AuthService();
 
   @override
@@ -22,11 +22,11 @@ class _ExpensesSummeryState extends State<ExpensesSummery> {
       child: Column(
         children: [
           const Text(
-            "Expenses Summery",
+            "Expenses Summary",
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           FutureBuilder(
-            future: db.getExpenseAmountSummery(),
+            future: db.getExpenseAmountSummary(),
             builder: (ctx, AsyncSnapshot<Map<String, double>> snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(
@@ -50,9 +50,14 @@ class _ExpensesSummeryState extends State<ExpensesSummery> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(entry.key, style: TextStyle(fontSize: 16)),
-                            Text(entry.value.toString(),
-                                style: const TextStyle(fontSize: 16)),
+                            Text(
+                              entry.key,
+                              style: const TextStyle(fontSize: 16),
+                            ),
+                            Text(
+                              entry.value.toString(),
+                              style: const TextStyle(fontSize: 16),
+                            ),
                           ],
                         ),
                       );
