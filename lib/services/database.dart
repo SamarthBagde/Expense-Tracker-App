@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:expense_tracker/services/auth.dart';
 
 class Database {
   Database({required this.uid});
@@ -86,5 +85,20 @@ class Database {
 
   Future<DocumentSnapshot> getUserData() async {
     return FirebaseFirestore.instance.collection('Users').doc(uid).get();
+  }
+
+  Future<double> getTotalExpenseAmount() async {
+    double totalAmount = 0;
+    QuerySnapshot snapshot = await FirebaseFirestore.instance
+        .collection('Users')
+        .doc(uid)
+        .collection('Expenses')
+        .get();
+
+    for (var doc in snapshot.docs) {
+      totalAmount += double.tryParse(doc['amount']) ?? 0.0;
+    }
+
+    return totalAmount;
   }
 }

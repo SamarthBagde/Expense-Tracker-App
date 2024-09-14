@@ -3,7 +3,6 @@ import 'package:expense_tracker/screens/wrapper.dart';
 import 'package:expense_tracker/services/auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
