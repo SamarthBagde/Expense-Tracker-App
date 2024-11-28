@@ -13,7 +13,8 @@ class EditExpense extends StatefulWidget {
       required this.date,
       required this.category});
 
-  final String oldTitle, oldAmount, expenseId, date, category;
+  final String oldTitle, expenseId, date, category;
+  final double oldAmount;
 
   @override
   State<EditExpense> createState() => _EditExpenseState();
@@ -28,7 +29,8 @@ class _EditExpenseState extends State<EditExpense> {
   void initState() {
     super.initState();
     _titleController = TextEditingController(text: widget.oldTitle);
-    _amountController = TextEditingController(text: widget.oldAmount);
+    _amountController =
+        TextEditingController(text: widget.oldAmount.toString());
   }
 
   @override
@@ -60,7 +62,7 @@ class _EditExpenseState extends State<EditExpense> {
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
               label: const Text('New Amount'),
-              hintText: widget.oldAmount,
+              hintText: widget.oldAmount.toString(),
             ),
           ),
           const SizedBox(
@@ -68,9 +70,10 @@ class _EditExpenseState extends State<EditExpense> {
           ),
           ElevatedButton(
             onPressed: () async {
+              final double amount = double.parse(_amountController.text);
               await database.updateExpense(
                   title: _titleController.text,
-                  amount: _amountController.text,
+                  amount: amount,
                   date: widget.date,
                   expenseId: widget.expenseId,
                   category: widget.category);

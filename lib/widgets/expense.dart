@@ -65,7 +65,7 @@ class Expesnse extends StatelessWidget {
                       actions: [
                         EditExpense(
                           oldTitle: title,
-                          oldAmount: amount,
+                          oldAmount: double.parse(amount),
                           expenseId: expenseId,
                           date: date,
                           category: category,

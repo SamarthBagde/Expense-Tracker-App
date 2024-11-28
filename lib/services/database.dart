@@ -46,7 +46,7 @@ class Database {
 
   Future<void> updateExpense({
     required String title,
-    required String amount,
+    required double amount,
     required String date,
     required String expenseId,
     required String category,
@@ -96,7 +96,7 @@ class Database {
         .get();
 
     for (var doc in snapshot.docs) {
-      totalAmount += double.tryParse(doc['amount']) ?? 0.0;
+      totalAmount += doc['amount'] ?? 0.0;
     }
 
     return totalAmount;
@@ -118,8 +118,8 @@ class Database {
         .get();
 
     for (var doc in snapshot.docs) {
-      amounts[doc['category']] = (amounts[doc['category']] ?? 0.0) +
-          (double.tryParse(doc['amount']) ?? 0.0);
+      amounts[doc['category']] =
+          (amounts[doc['category']] ?? 0.0) + (doc['amount'] ?? 0.0);
     }
 
     return amounts;

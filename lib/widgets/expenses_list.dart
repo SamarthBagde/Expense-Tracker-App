@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expense_tracker/services/auth.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +24,7 @@ class _ExpensesListState extends State<ExpensesList> {
             .collection('Users')
             .doc(uid)
             .collection('Expenses')
-            .orderBy('amount', descending: true)
+            .orderBy('amount', descending: widget.sortInc)
             .snapshots(),
         builder: (ctx, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
