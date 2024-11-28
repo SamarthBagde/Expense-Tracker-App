@@ -22,7 +22,7 @@ class _ExpensesListState extends State<ExpensesList> {
             .collection('Users')
             .doc(uid)
             .collection('Expenses')
-            .orderBy('amount', descending: widget.sortInc)
+            .orderBy('amount', descending: true)
             .snapshots(),
         builder: (ctx, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -53,7 +53,7 @@ class _ExpensesListState extends State<ExpensesList> {
 
                   return Expesnse(
                     title: capitalize(data['title']),
-                    amount: data['amount'],
+                    amount: data['amount'].toString(),
                     date: data['date'].toString(),
                     expenseId: expenseId,
                     category: data['category'].toString(),

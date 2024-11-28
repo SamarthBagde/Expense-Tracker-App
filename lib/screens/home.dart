@@ -47,36 +47,50 @@ class _HomePageState extends State<HomePage> {
         ),
         actions: [
           IconButton(
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                    title: const Text(
-                      'Are you sure you would like to log out ?',
-                      style: TextStyle(
-                        fontSize: 20,
+            onPressed: () {
+              setState(() {
+                sortInc = !sortInc;
+              });
+            },
+            icon: const Icon(
+              Icons.filter_alt_outlined,
+              color: Colors.white,
+            ),
+            tooltip: 'Toggle Sort Order',
+          ),
+          IconButton(
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: const Text(
+                    'Are you sure you would like to log out?',
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
+                  ),
+                  actions: [
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            const Color.fromARGB(255, 75, 125, 251),
+                      ),
+                      onPressed: () {
+                        _auth.signOut();
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text(
+                        "Log Out",
+                        style: TextStyle(color: Colors.white),
                       ),
                     ),
-                    actions: [
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              const Color.fromARGB(255, 75, 125, 251),
-                        ),
-                        onPressed: () {
-                          _auth.signOut();
-                          Navigator.of(context).pop();
-                        },
-                        child: const Text(
-                          "Log Out",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              },
-              icon: const Icon(Icons.logout))
+                  ],
+                ),
+              );
+            },
+            icon: const Icon(Icons.logout),
+            tooltip: 'Log Out',
+          ),
         ],
         backgroundColor: const Color.fromARGB(255, 75, 125, 251),
         title: const Text(
@@ -84,34 +98,11 @@ class _HomePageState extends State<HomePage> {
           style: TextStyle(color: Colors.white),
         ),
       ),
-      body: Stack(
-        children: [
-          Container(
-            // height: containerHeight,
-            padding: const EdgeInsetsDirectional.all(12),
-            child: ExpensesList(
-              sortInc: sortInc,
-            ),
-          ),
-          Positioned(
-            bottom: 16.0, // Distance from the bottom
-            left: 16.0, // Distance from the left
-            child: IconButton(
-              style: IconButton.styleFrom(
-                backgroundColor: const Color.fromARGB(255, 75, 125, 251),
-              ),
-              onPressed: () {
-                setState(() {
-                  sortInc = !sortInc;
-                });
-              },
-              icon: const Icon(
-                Icons.filter_alt_outlined,
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ],
+      body: Container(
+        padding: const EdgeInsetsDirectional.all(12),
+        child: ExpensesList(
+          sortInc: sortInc,
+        ),
       ),
     );
   }

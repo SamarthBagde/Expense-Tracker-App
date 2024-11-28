@@ -1,10 +1,7 @@
-// ignore_for_file: avoid_print, use_build_context_synchronously
-
 import 'package:expense_tracker/services/auth.dart';
 import 'package:expense_tracker/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-// import 'package:random_string/random_string.dart';
 
 class AddExpense extends StatefulWidget {
   const AddExpense({super.key});
@@ -20,6 +17,7 @@ class _AddExpenseState extends State<AddExpense> {
   final TextEditingController _amountController = TextEditingController();
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
+  var errorMsg = '';
   DateTime? _selectedDate;
 
   Category _selectedCategory = Category.other;
@@ -151,14 +149,17 @@ class _AddExpenseState extends State<AddExpense> {
                   backgroundColor: const Color.fromARGB(255, 75, 125, 251),
                 ),
                 onPressed: () async {
-                  if (_validateData()) {
+                  if (_formKey.currentState!.validate() && _validateData()) {
                     // String date = formatter.format(now);
                     final String uid = _auth.getCurrentUid();
                     final Database dataBase = Database(uid: uid);
                     try {
+                      final double amount =
+                          double.parse(_amountController.text);
+
                       await dataBase.addExpense(
                         title: _titleController.text,
-                        amount: _amountController.text,
+                        amount: amount,
                         date: formatter.format(_selectedDate!),
                         category: _selectedCategory.name,
                       );
@@ -166,6 +167,8 @@ class _AddExpenseState extends State<AddExpense> {
                       setState(() {
                         _titleController.clear();
                         _amountController.clear();
+                        _selectedDate = null;
+                        _selectedCategory = Category.other;
                       });
                     } catch (e) {
                       print(e.toString());
@@ -173,6 +176,9 @@ class _AddExpenseState extends State<AddExpense> {
 
                     Navigator.pop(context);
                   } else {
+                    setState(() {
+                      errorMsg = "Enter valid data";
+                    });
                     print("Enter valid data");
                   }
                 },
@@ -183,6 +189,15 @@ class _AddExpenseState extends State<AddExpense> {
                   ),
                 ),
               ),
+              const SizedBox(
+                height: 20,
+              ),
+              errorMsg != ''
+                  ? Text(
+                      errorMsg,
+                      style: const TextStyle(color: Colors.red),
+                    )
+                  : const Text(''),
             ],
           ),
         ));

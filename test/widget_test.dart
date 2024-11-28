@@ -1,30 +1,32 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
+// import 'package:expense_tracker/services/auth.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:flutter_test/flutter_test.dart';
+// import 'package:mockito/mockito.dart';
+// import 'package:rxdart/rxdart.dart';
 
-import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
+// class MockFirebaseAuth extends Mock implements FirebaseAuth {}
 
-import 'package:expense_tracker/main.dart';
+// class MockFirebaseUser extends Mock implements User {}
 
-void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const ExpenseApp());
+// class MockAuthResult extends Mock implements UserCredential {}
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+// void main() {
+//   MockFirebaseAuth _auth = MockFirebaseAuth();
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+//   BehaviorSubject<MockFirebaseUser> _user = BehaviorSubject<MockFirebaseUser>();
+//   AuthService _repo = AuthService();
+//   group("User repository test", () {
+//     when(_auth.signInWithEmailAndPassword(email: "email", password: "password"))
+//         .thenAnswer((_) async {
+//       _user.add(MockFirebaseUser());
+//       return MockAuthResult();
+//     });
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
-  });
-}
+//     test("Sign in", () async {
+//       bool signedIn = await _repo.signUp(email: "email", password: "password");
+//       expect(signedIn, true);
+//     });
+
+//     test("Sign out", () async {});
+//   });
+// }

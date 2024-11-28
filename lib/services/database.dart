@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Database {
@@ -21,7 +23,7 @@ class Database {
 
   Future<void> addExpense(
       {required String title,
-      required String amount,
+      required double amount,
       required String date,
       required String category
       // required String expenseId,
